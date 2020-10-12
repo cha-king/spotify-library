@@ -1,6 +1,6 @@
 const API_URL = 'https://accounts.spotify.com/authorize';
 const CLIENT_ID = 'ebded317aa0c41048b1cd4ac05c6c37d';
-const REDIRECT_URL = 'http://blog.cha-king.com/spotify-library/index.html'
+const REDIRECT_URL = 'http://library.cha-king.com'
 
 document.getElementById('auth-button').onclick = async () => {
     let url = API_URL;
