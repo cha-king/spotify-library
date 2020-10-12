@@ -36,7 +36,7 @@ async function displayArtists(artists) {
 }
 
 if (!window.location.hash) {
-    window.location = '/auth.html';
+    window.location = '/spotify-library/auth.html';
 }
 
 const token = window.location.hash.substring(1).split('&')[0].split('=')[1];
