@@ -27,11 +27,12 @@ async function getArtists(token) {
 
 async function displayArtists(artists) {
     console.log(artists);
-    const artist_col = document.getElementById('artist_col');
+    const artist_col = document.getElementById('artist-list');
     artists.forEach(artist => {
-        let option = document.createElement('option');
-        option.text = artist;
-        artist_col.append(option);
+        let entry = document.createElement('div');
+        entry.textContent = artist;
+        entry.className = 'list-entry';
+        artist_col.append(entry);
     });
 }
 
@@ -39,6 +40,7 @@ if (!window.location.hash) {
     window.location = '/auth.html';
 }
 
+// TODO: Hash parsing
 const token = window.location.hash.substring(1).split('&')[0].split('=')[1];
 
 getArtists(token).then(artists => displayArtists(artists));
