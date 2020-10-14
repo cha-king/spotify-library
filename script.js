@@ -28,7 +28,7 @@ async function getArtists(token) {
                 item.album.artists.forEach(artist => {
                     artists.add(artist.name);
                 });
-            })
+            });
         });
         promises.push(promise);
     }
