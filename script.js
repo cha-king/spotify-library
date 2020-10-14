@@ -4,21 +4,35 @@ const API_URL = 'https://api.spotify.com/v1/me/albums';
 async function getArtists(token) {
     let artists = new Set();
     let url = API_URL + '?limit=50';
-    do {
-        const response = await fetch(url, {
+
+    const response = await fetch(url, {
+        headers: {
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    const data = await response.json();
+    const num_albums = data.total;
+
+    const promises = [];
+    for (i = 0; i + 50 <= num_albums + 50; i += 50) {
+        url = API_URL + '?limit=50' + `&offset=${i}`;
+        const promise = fetch(url, {
             headers: {
                 'Authorization': `Bearer ${token}`
             }
+        })
+        .then(response => response.json())
+        .then(content => {
+            content.items.forEach(item => {
+                item.album.artists.forEach(artist => {
+                    artists.add(artist.name);
+                });
+            })
         });
-        const data = await response.json();
-        data.items.forEach(item => {
-            item.album.artists.forEach(artist => {
-                artists.add(artist.name);
-            });
-        });
-        url = data.next;
-        console.log(data);
-    } while (url);
+        promises.push(promise);
+    }
+    await Promise.all(promises);
+
     return Array.from(artists).sort((a, b) => {
         return (a.replace(/^The /, '') > b.replace(/^The /, '')) ? 1 : -1;
     });
