@@ -8,7 +8,7 @@
 .list-entry {
     padding: 5px;
     border-bottom: solid thin;
-    cursor: default;
+    cursor: pointer;
 }
 
 .list-entry:last-child {
