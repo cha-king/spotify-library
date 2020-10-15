@@ -14,11 +14,15 @@
 }
 
 .list-entry {
-    padding: 5px;
+    padding: 15px;
     border-bottom: solid thin;
     cursor: default;
 }
 
 .list-entry:hover {
     background-color: LightGray;
+}
+
+div.list-entry {
+    font-family: sans-serif;
 }
