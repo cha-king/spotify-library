@@ -56,7 +56,7 @@ async function displayArtists(artists) {
         let entry = document.createElement('div');
         entry.textContent = artist_name;
         entry.className = 'list-entry';
-        entry.onclick = () => {
+        entry.ondblclick = () => {
             const url = artist.external_url;
             window.open(url);
         }
