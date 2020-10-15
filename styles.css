@@ -14,3 +14,7 @@
 .list-entry:last-child {
     border-bottom: inherit;
 }
+
+.list-entry:hover {
+    background-color: LightGray;
+}
