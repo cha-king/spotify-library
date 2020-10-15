@@ -60,6 +60,21 @@ async function displayArtists(artists) {
             const url = artist.external_url;
             window.open(url);
         }
+        entry.onclick = () => {
+            const album_list = document.getElementById('album-list');
+            while (album_list.firstChild) {
+                album_list.removeChild(album_list.firstChild);
+            }
+            artist.albums.forEach(album => {
+                const album_entry = document.createElement('div');
+                album_entry.className = 'list-entry';
+                album_entry.textContent = album.name;
+                album_entry.ondblclick = () => {
+                    window.open(album.external_urls.spotify);
+                };
+                album_list.append(album_entry);
+            })
+        }
         artist_col.append(entry);
     };
 }
