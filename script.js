@@ -65,8 +65,8 @@ async function displayArtists(artists) {
             while (album_list.firstChild) {
                 album_list.removeChild(album_list.firstChild);
             }
-            artist.albums.sort((x, y) => {
-                return (x.name < y.name) ? -1 : 1;
+            artist.albums.sort((a, b) => {
+                return (a.name.replace(/^The /, '') > b.name.replace(/^The /, '')) ? 1 : -1;
             })
             artist.albums.forEach(album => {
                 const album_entry = document.createElement('div');
