@@ -83,7 +83,7 @@ async function displayArtists(artists) {
 }
 
 if (!window.location.hash) {
-    window.location = '/auth.html';
+    window.location = '/login.html';
 }
 
 // TODO: Hash parsing
