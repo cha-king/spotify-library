@@ -8,10 +8,5 @@ document.getElementById('auth-button').onclick = async () => {
     url += '&response_type=token' 
     url += '&redirect_uri=' + encodeURIComponent(REDIRECT_URL);
     url += '&scope=' + 'user-library-read';
-    /*
-    const response = await fetch(url);
-    const response_data = await response.json();
-    console.log(response_data);
-    */
     window.location = url;
 }
