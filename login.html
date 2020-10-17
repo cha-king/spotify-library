@@ -1,9 +1,19 @@
 <html>
     <head>
         <title>Spotify Library Viewer</title> 
+        <link rel='stylesheet' href='styles.css'>
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Noto Sans'>
         <script src="login.js" defer></script>
     </head>
     <body>
-        <Button type="button" id="auth-button">Login to Spotify</Button>
+        <div class='login-page'>
+            <div class='login-form'>
+                <h2>Spotify Sign in</h2>
+                <button type="button" id="auth-button" class='login'>
+                    <img id='spotify-logo' src='images/Spotify_Icon_RGB_White.png'>
+                    Continue with Spotify
+                </button>
+            </div>
+        </div>
     </body>
 </html>
