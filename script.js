@@ -82,11 +82,10 @@ async function displayArtists(artists) {
     };
 }
 
-if (!window.location.hash) {
+const match = window.location.hash.match(/access_token=([^&]+)/);
+if (!match) {
     window.location = '/login.html';
 }
+const access_token = match[1];
 
-// TODO: Hash parsing
-const token = window.location.hash.substring(1).split('&')[0].split('=')[1];
-
-getArtists(token).then(artists => displayArtists(artists));
+getArtists(access_token).then(artists => displayArtists(artists));
