@@ -1,5 +1,6 @@
 body {
     font-family: 'Noto Sans', serif;
+    background-color: lightgrey;
 }
 
 img {
@@ -57,12 +58,11 @@ button.login img {
 }
 
 .login-form {
-    border: solid;
     display: flex;
     flex-direction: column;
     padding: 15px 12px;
     border-radius: 10px;
-    background-color: lightgray;
+    background-color: white;
 }
 
 .login-form h2 {
