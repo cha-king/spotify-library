@@ -27,6 +27,7 @@ img {
     padding: 15px;
     border-bottom: solid thin;
     cursor: default;
+    background-color: white;
 }
 
 .list-entry:hover {
