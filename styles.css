@@ -44,8 +44,8 @@ button.login {
     font-size: medium;
     cursor: pointer;
     border: none;
-    height: 42px;
-    width: 300px;
+    height: 45px;
+    width: 100%;
     border-radius: 5px;
     padding: 10px;
     display: flex;
@@ -60,9 +60,12 @@ button.login img {
 .login-form {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 15px 12px;
     border-radius: 10px;
     background-color: white;
+    width: 100%;
+    max-width: 500px;
 }
 
 .login-form h2 {
