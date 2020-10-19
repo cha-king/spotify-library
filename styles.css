@@ -37,6 +37,8 @@ img {
 .login-page {
     display: flex;
     justify-content: center;
+    align-items: center;
+    height: 100%;
 }
 
 button.login {
@@ -66,7 +68,9 @@ button.login img {
     border-radius: 10px;
     background-color: white;
     width: 100%;
-    max-width: 500px;
+    max-width: 375px;
+    height: 96%;
+    max-height: 700px;
 }
 
 .login-form h2 {
