@@ -82,10 +82,16 @@ async function displayArtists(artists) {
     };
 }
 
-const match = window.location.hash.match(/access_token=([^&]+)/);
-if (!match) {
+const token_match = window.location.hash.match(/access_token=([^&]+)/);
+const state_match = window.location.hash.match(/state=([^&]+)/);
+if (!(token_match && state_match)) {
     window.location = '/login.html';
 }
-const access_token = match[1];
+returned_state = state_match[1];
+submit_state = window.sessionStorage.getItem('state');
+if (returned_state !== submit_state) {
+    throw Error('State value in redirect URI does not match.');
+}
+const access_token = token_match[1];
 
 getArtists(access_token).then(artists => displayArtists(artists));
