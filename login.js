@@ -6,10 +6,12 @@ document.getElementById('auth-button').onclick = async () => {
     const state = Math.random().toString(36).substring(2);
     window.sessionStorage.setItem('state', state);
 
+    const redirect_uri = (window.location.hostname === 'localhost') ? 'http://localhost' : REDIRECT_URL;
+
     let url = API_URL;
     url += '?client_id=' + encodeURIComponent(CLIENT_ID);
     url += '&response_type=token' 
-    url += '&redirect_uri=' + encodeURIComponent(REDIRECT_URL);
+    url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
     url += '&scope=' + 'user-library-read';
     url += '&state=' + encodeURIComponent(state);
     window.location = url;
