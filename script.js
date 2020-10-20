@@ -61,22 +61,7 @@ async function displayArtists(artists) {
             window.open(url);
         }
         entry.onclick = () => {
-            const album_list = document.getElementById('album-list');
-            while (album_list.firstChild) {
-                album_list.removeChild(album_list.firstChild);
-            }
-            artist.albums.sort((a, b) => {
-                return (a.name.replace(/^The /, '') > b.name.replace(/^The /, '')) ? 1 : -1;
-            })
-            artist.albums.forEach(album => {
-                const album_entry = document.createElement('div');
-                album_entry.className = 'list-entry';
-                album_entry.textContent = album.name;
-                album_entry.ondblclick = () => {
-                    window.open(album.external_urls.spotify);
-                };
-                album_list.append(album_entry);
-            })
+            window.location.search = `display=album&artist=${encodeURIComponent(artist_name)}`;
         }
         artist_col.append(entry);
     };
@@ -100,7 +85,7 @@ if (display === 'artist') {
     getArtists(access_token).then(artists => displayArtists(artists));
 }
 else if (display === 'album') {
-    const artist_name = urlParams.get('artist');
+    const artist_name = decodeURIComponent(urlParams.get('artist'));
     getArtists(access_token).then(artists => {
         const artist = artists[artist_name];
         const album_list = document.getElementsByClassName('list')[0];
@@ -111,7 +96,7 @@ else if (display === 'album') {
             const album_entry = document.createElement('div');
             album_entry.className = 'list-entry';
             album_entry.textContent = album.name;
-            album_entry.ondblclick = () => {
+            album_entry.onclick = () => {
                 window.open(album.external_urls.spotify);
             };
             album_list.append(album_entry);
