@@ -8,14 +8,25 @@ img {
     max-width: 100%;
 }
 
+.browser-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
 .browser {
     border: solid;
     height: 100%;
+    max-width: 375px;
+    width: 100%;
+    border-radius: 15px;
 }
 
 .list {
     overflow: scroll;
     max-height: 100%;
+    border-radius: 15px;
 }
 
 .list-entry {
@@ -23,6 +34,10 @@ img {
     border-bottom: solid thin;
     cursor: default;
     background-color: white;
+}
+
+.list-entry:last-child {
+    border-bottom: none;
 }
 
 .list-entry:hover {
