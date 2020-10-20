@@ -94,4 +94,24 @@ if (returned_state !== submit_state) {
 }
 const access_token = token_match[1];
 
-getArtists(access_token).then(artists => displayArtists(artists));
+const urlParams = new URLSearchParams(window.location.search);
+const display = urlParams.get('display');
+if (display === 'artist') {
+    getArtists(access_token).then(artists => displayArtists(artists));
+}
+else if (display === 'album') {
+    const artist_name = urlParams.get('artist');
+    getArtists(access_token).then(artists => {
+        const artist = artists[artist_name];
+        const album_list = document.getElementsByClassName('list')[0];
+        artist.albums.forEach(album => {
+            const album_entry = document.createElement('div');
+            album_entry.className = 'list-entry';
+            album_entry.textContent = album.name;
+            album_entry.ondblclick = () => {
+                window.open(album.external_urls.spotify);
+            };
+            album_list.append(album_entry);
+        })
+    })
+}
