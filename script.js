@@ -104,6 +104,9 @@ else if (display === 'album') {
     getArtists(access_token).then(artists => {
         const artist = artists[artist_name];
         const album_list = document.getElementsByClassName('list')[0];
+        artist.albums.sort((a, b) => {
+            return (a.name.replace(/^The /, '') > b.name.replace(/^The /, '')) ? 1 : -1;
+        })
         artist.albums.forEach(album => {
             const album_entry = document.createElement('div');
             album_entry.className = 'list-entry';
