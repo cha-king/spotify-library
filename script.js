@@ -50,7 +50,7 @@ async function displayArtists(artists) {
         return (a.replace(/^The /, '') > b.replace(/^The /, '')) ? 1 : -1;
     });
 
-    const artist_col = document.getElementById('artist-list');
+    const artist_col = document.getElementsByClassName('list')[0];
     for (const artist_name of artist_names) {
         const artist = artists[artist_name];
         let entry = document.createElement('div');

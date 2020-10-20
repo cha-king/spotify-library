@@ -9,18 +9,13 @@ img {
 }
 
 .browser {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
     border: solid;
     height: 100%;
 }
 
 .list {
     overflow: scroll;
-}
-
-.list:last-child{
-    border-left: solid;
+    max-height: 100%;
 }
 
 .list-entry {
