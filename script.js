@@ -67,26 +67,62 @@ async function displayArtists(artists) {
     };
 }
 
-const token_match = window.location.hash.match(/access_token=([^&]+)/);
-const state_match = window.location.hash.match(/state=([^&]+)/);
-if (!(token_match && state_match)) {
+function getAccessToken() {
+    let token = JSON.parse(window.localStorage.getItem('token'));
+    if (token) {
+        if (Date.now() >= token.expiration) {
+            window.localStorage.removeItem('token');
+            return null;
+        } else {
+            return token;
+        }
+    } else {
+        token = getTokenFromHash();
+        if (token) {
+            window.localStorage.setItem('token', JSON.stringify(token));   
+        }
+        return token;
+    }
+}
+
+function getTokenFromHash() {
+    const token_match = window.location.hash.match(/access_token=([^&]+)/);
+    const state_match = window.location.hash.match(/state=([^&]+)/);
+    const expires_in_match = window.location.hash.match(/expires_in=([^&]+)/);
+    if (!(token_match && state_match && expires_in_match)) {
+        return null;
+    }
+    returned_state = state_match[1];
+    submit_state = window.sessionStorage.getItem('state');
+    if (returned_state !== submit_state) {
+        throw Error('State value in redirect URI does not match.');
+    }
+
+    const access_token = token_match[1];
+    const expires_in = expires_in_match[1];
+
+    return {
+        value: access_token,
+        expiration: Date.now() + expires_in * 1000
+    }
+}
+
+const access_token = getAccessToken();
+if (!access_token) {
     window.location = '/login.html';
 }
-returned_state = state_match[1];
-submit_state = window.sessionStorage.getItem('state');
-if (returned_state !== submit_state) {
-    throw Error('State value in redirect URI does not match.');
-}
-const access_token = token_match[1];
 
 const urlParams = new URLSearchParams(window.location.search);
 const display = urlParams.get('display');
+if (!display) {
+    window.location.search = 'display=artist';
+}
 if (display === 'artist') {
-    getArtists(access_token).then(artists => displayArtists(artists));
+    getArtists(access_token.value).then(artists => displayArtists(artists));
 }
 else if (display === 'album') {
     const artist_name = decodeURIComponent(urlParams.get('artist'));
-    getArtists(access_token).then(artists => {
+    getArtists(access_token.value).then(artists => {
         const artist = artists[artist_name];
         const album_list = document.getElementsByClassName('list')[0];
         artist.albums.sort((a, b) => {
