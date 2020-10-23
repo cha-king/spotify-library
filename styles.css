@@ -51,13 +51,13 @@ img {
     height: 100%;
 }
 
-button.login {
+div.login {
     color: white;
     background-color: #1DB954;
     font-size: medium;
     cursor: pointer;
     border: none;
-    height: 45px;
+    height: 35px;
     width: 100%;
     border-radius: 5px;
     padding: 10px;
@@ -66,7 +66,7 @@ button.login {
     justify-content: center;
 }
 
-button.login img {
+div.login img {
     margin-right: 15px;
 }
 
@@ -74,12 +74,12 @@ button.login img {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 15px 12px;
+    padding: 15px;
     border-radius: 10px;
     background-color: white;
     width: 100%;
     max-width: 375px;
-    height: 96%;
+    height: 95%;
     max-height: 700px;
 }
 
