@@ -1,7 +1,7 @@
 # spotify-library
 Alternate viewer for library of saved Spotify albums
 
-Head to library.cha-king.com to see it in action!
+Head to [library.cha-king.com](https://library.cha-king.com) to see it in action!
 
 ## Description
 As much as I love Spotify, I miss the days of having an iPod or iTunes where, if I didn't know what to listen to, I could search through my library to find some forgotten gems.
