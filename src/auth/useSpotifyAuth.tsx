@@ -2,9 +2,10 @@ import { useEffect } from "react";
 
 const CLIENT_ID = "ebded317aa0c41048b1cd4ac05c6c37d";
 const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
-const REDIRECT_URI = "http://localhost:3000"
+const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
+const REDIRECT_URI = "http://localhost:3000/redirect";
 const STATE = "";
-const SCOPE = "user-library-read"
+const SCOPE = "user-library-read";
 
 function base64UrlEncode(value: string) {
   return btoa(value)
@@ -41,6 +42,38 @@ async function auth() {
   requestAuthorization(challenge);
 }
 
+async function handleRedirect() {
+  const params = new URLSearchParams(document.location.search);
+  const authCode = params.get("code");
+  if (authCode === null) {
+    throw new Error("Missing code");
+  }
+
+  const verifier = window.localStorage.getItem("code_verifier");
+  if (verifier === null) {
+    throw new Error("Missing verifier");
+  }
+
+  console.log(verifier)
+
+  const response = await fetch(SPOTIFY_TOKEN_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      client_id: CLIENT_ID,
+      grant_type: "authorization_code",
+      code: authCode,
+      redirect_uri: REDIRECT_URI,
+      code_verifier: verifier,
+    }),
+  });
+
+  const body = await response.json();
+  console.log(body);
+}
+
 function requestAuthorization(challenge: string) {
   const url = new URL(SPOTIFY_AUTH_URL);
   const params = new URLSearchParams({
@@ -60,7 +93,9 @@ function requestAuthorization(challenge: string) {
 export default function useSpotifyAuth() {
   useEffect(() => {
     if (document.location.pathname === "/auth") {
-        auth();
+      auth();
+    } else if (document.location.pathname === "/redirect") {
+      handleRedirect();
     }
   }, []);
 }
