@@ -14,11 +14,15 @@ function base64UrlEncode(value: string) {
     .replace(/\=+$/g, "");
 }
 
-function generateCodeVerifier() {
-  const randomVals = crypto.getRandomValues(new Uint8Array(32));
-  const randomString = Array.from(randomVals)
+function arrayToString(array: Uint8Array) {
+  return Array.from(array)
     .map((byte) => String.fromCharCode(byte))
     .join("");
+}
+
+function generateCodeVerifier() {
+  const randomVals = crypto.getRandomValues(new Uint8Array(32));
+  const randomString = arrayToString(randomVals);
   const randomBase64 = base64UrlEncode(randomString);
 
   return randomBase64;
@@ -30,9 +34,7 @@ async function generateCodeChallenge(codeVerifer: string) {
     "SHA-256",
     encoder.encode(codeVerifer)
   );
-  const challenge = base64UrlEncode(
-    Array.from(new Uint8Array(digest)).join("")
-  );
+  const challenge = base64UrlEncode(arrayToString(new Uint8Array(digest)));
 
   return challenge;
 }
@@ -55,8 +57,6 @@ async function handleRedirect() {
   if (verifier === null) {
     throw new Error("Missing verifier");
   }
-
-  console.log(verifier)
 
   const response = await fetch(SPOTIFY_TOKEN_URL, {
     method: "POST",
