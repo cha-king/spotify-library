@@ -16,7 +16,9 @@ function base64UrlEncode(value: string) {
 
 function generateCodeVerifier() {
   const randomVals = crypto.getRandomValues(new Uint8Array(32));
-  const randomString = Array.from(randomVals).join("");
+  const randomString = Array.from(randomVals)
+    .map((byte) => String.fromCharCode(byte))
+    .join("");
   const randomBase64 = base64UrlEncode(randomString);
 
   return randomBase64;
