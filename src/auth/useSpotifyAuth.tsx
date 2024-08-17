@@ -7,6 +7,14 @@ const REDIRECT_URI = "http://localhost:3000/redirect";
 const STATE = "";
 const SCOPE = "user-library-read";
 
+interface Token {
+  access_token: string;
+  token_type: string;
+  scope: "Bearer";
+  expires_in: number;
+  refresh_token: string;
+}
+
 function base64UrlEncode(value: string) {
   return btoa(value)
     .replace(/\+/g, "-")
@@ -72,8 +80,9 @@ async function handleRedirect() {
     }),
   });
 
-  const body = await response.json();
-  console.log(body);
+  const token = (await response.json()) as Token;
+
+  return token;
 }
 
 function requestAuthorization(challenge: string) {
