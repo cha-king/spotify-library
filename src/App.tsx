@@ -1,8 +1,11 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import useSpotifyAuth from "./auth/useSpotifyAuth";
 
 function App() {
+  useSpotifyAuth();
+
   return (
     <div className="App">
       <header className="App-header">
