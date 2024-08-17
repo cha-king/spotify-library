@@ -42,7 +42,7 @@ async function generateCodeChallenge(codeVerifer: string) {
 async function auth() {
   const verifier = generateCodeVerifier();
   const challenge = await generateCodeChallenge(verifier);
-  window.localStorage.setItem("code_verifier", verifier);
+  window.sessionStorage.setItem("code_verifier", verifier);
   requestAuthorization(challenge);
 }
 
@@ -53,7 +53,7 @@ async function handleRedirect() {
     throw new Error("Missing code");
   }
 
-  const verifier = window.localStorage.getItem("code_verifier");
+  const verifier = window.sessionStorage.getItem("code_verifier");
   if (verifier === null) {
     throw new Error("Missing verifier");
   }
