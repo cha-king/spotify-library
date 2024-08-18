@@ -1,13 +1,13 @@
 import { useEffect } from "react";
+import {
+  CLIENT_ID,
+  REDIRECT_URI,
+  SPOTIFY_TOKEN_URL,
+  TOKEN_KEY,
+} from "./constants";
+import { useNavigate } from "react-router";
 
-const CLIENT_ID = "ebded317aa0c41048b1cd4ac05c6c37d";
-const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
-const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
-const REDIRECT_URI = "http://localhost:3000/redirect";
-const STATE = "";
-const SCOPE = "user-library-read";
-
-interface Token {
+interface TokenResponse {
   access_token: string;
   token_type: string;
   scope: "Bearer";
@@ -40,8 +40,20 @@ async function handleRedirect() {
       code_verifier: verifier,
     }),
   });
+  if (response.status !== 200) {
+    return
+  }
 
-  const token = (await response.json()) as Token;
+  const token = (await response.json()) as TokenResponse;
+  localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
+}
 
-  return token;
+export default function Redirect() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    handleRedirect().then(() => navigate("/"));
+  }, []);
+
+  return null;
 }

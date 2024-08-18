@@ -5,6 +5,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import IPod from "./IPod";
 import Login from "./Login";
+import Redirect from "./Redirect";
 
 const router = createBrowserRouter([
   {
@@ -14,7 +15,11 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
-  }
+  },
+  {
+    path: "/redirect",
+    element: <Redirect />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(
