@@ -15,6 +15,10 @@ interface TokenResponse {
   refresh_token: string;
 }
 
+interface Token extends TokenResponse {
+  expired_at: number;
+}
+
 async function handleRedirect() {
   const params = new URLSearchParams(document.location.search);
   const authCode = params.get("code");
@@ -41,10 +45,15 @@ async function handleRedirect() {
     }),
   });
   if (response.status !== 200) {
-    return
+    return;
   }
+  const tokenResponse = (await response.json()) as TokenResponse;
 
-  const token = (await response.json()) as TokenResponse;
+  const token = {
+    ...tokenResponse,
+    expires_at: tokenResponse.expires_in * 1000 + Date.now(),
+  };
+
   localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
 }
 
