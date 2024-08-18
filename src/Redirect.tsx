@@ -6,18 +6,7 @@ import {
   TOKEN_KEY,
 } from "./constants";
 import { useNavigate } from "react-router";
-
-interface TokenResponse {
-  access_token: string;
-  token_type: string;
-  scope: "Bearer";
-  expires_in: number;
-  refresh_token: string;
-}
-
-interface Token extends TokenResponse {
-  expired_at: number;
-}
+import { TokenResponse } from "./types";
 
 async function handleRedirect() {
   const params = new URLSearchParams(document.location.search);
