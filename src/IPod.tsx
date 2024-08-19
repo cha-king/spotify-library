@@ -1,23 +1,23 @@
 import { useNavigate } from "react-router";
-import useToken from "./auth/useToken";
 import { useEffect } from "react";
 import { getAlbums } from "./spotify";
+import { hasToken } from "./auth/util";
 
 export default function IPod() {
   const navigate = useNavigate();
-  const token = useToken();
+  const isLoggedIn = hasToken();
 
   useEffect(() => {
-    if (token === null) {
+    if (!isLoggedIn) {
       navigate("/login");
     }
-  }, [token, navigate]);
+  }, [isLoggedIn, navigate]);
 
   useEffect(() => {
-    if (token !== null) {
-      getAlbums(token);
+    if (isLoggedIn) {
+      getAlbums();
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return <div>Hey</div>;
 }

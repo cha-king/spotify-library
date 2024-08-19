@@ -1,3 +1,4 @@
+import { getToken } from "./auth/util";
 import { SPOTIFY_API_URL } from "./constants";
 import { Token } from "./types";
 
@@ -32,7 +33,13 @@ async function fetchAlbums(access_token: string, offset: number) {
   return albums;
 }
 
-export async function getAlbums({ access_token }: Token): Promise<Album[]> {
+export async function getAlbums(): Promise<Album[]> {
+  const token = await getToken();
+  if (token === null) {
+    throw new Error("No token");
+  }
+  const { access_token } = token;
+
   const url = new URL(SPOTIFY_API_URL);
   url.search = new URLSearchParams({
     limit: "1",

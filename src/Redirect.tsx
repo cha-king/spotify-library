@@ -6,7 +6,7 @@ import {
   TOKEN_KEY,
 } from "./constants";
 import { useNavigate } from "react-router";
-import { TokenResponse } from "./types";
+import { Token, TokenResponse } from "./types";
 
 async function handleRedirect() {
   const params = new URLSearchParams(document.location.search);

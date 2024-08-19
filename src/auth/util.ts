@@ -1,3 +1,6 @@
+import { TOKEN_KEY } from "../constants";
+import { Token } from "../types";
+
 const CLIENT_ID = "ebded317aa0c41048b1cd4ac05c6c37d";
 const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
 const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
@@ -51,4 +54,42 @@ export function requestAuthorization(challenge: string) {
   url.search = params.toString();
 
   window.location.href = url.toString();
+}
+
+export async function refreshToken({ refresh_token }: Token) {
+  const response = await fetch(SPOTIFY_TOKEN_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      grant_type: "refresh_token",
+      refresh_token,
+      client_id: CLIENT_ID,
+    }),
+  });
+
+  const token = (await response.json()) as Token;
+  localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
+  return token;
+}
+
+export async function getToken() {
+  const tokenRaw = localStorage.getItem(TOKEN_KEY);
+  if (tokenRaw === null) {
+    return null;
+  }
+
+  let token = JSON.parse(tokenRaw) as Token;
+
+  // Refresh token if needed
+  if (token.expires_at <= Date.now()) {
+    token = await refreshToken(token);
+  }
+
+  return token;
+}
+
+export function hasToken() {
+  return localStorage.getItem(TOKEN_KEY) !== null;
 }
