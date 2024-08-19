@@ -38,7 +38,7 @@ async function handleRedirect() {
   }
   const tokenResponse = (await response.json()) as TokenResponse;
 
-  const token = {
+  const token: Token = {
     ...tokenResponse,
     expires_at: tokenResponse.expires_in * 1000 + Date.now(),
   };

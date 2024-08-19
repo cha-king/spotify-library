@@ -7,5 +7,5 @@ export interface TokenResponse {
 }
 
 export interface Token extends TokenResponse {
-  expired_at: number;
+  expires_at: number;
 }
