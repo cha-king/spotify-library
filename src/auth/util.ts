@@ -1,5 +1,5 @@
 import { TOKEN_KEY } from "../constants";
-import { Token } from "../types";
+import { Token, TokenResponse } from "../types";
 
 const CLIENT_ID = "ebded317aa0c41048b1cd4ac05c6c37d";
 const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
@@ -69,7 +69,13 @@ export async function refreshToken({ refresh_token }: Token) {
     }),
   });
 
-  const token = (await response.json()) as Token;
+  const tokenResponse = (await response.json()) as TokenResponse;
+
+  const token: Token = {
+    ...tokenResponse,
+    expires_at: tokenResponse.expires_in * 1000 + Date.now(),
+  };
+
   localStorage.setItem(TOKEN_KEY, JSON.stringify(token));
   return token;
 }
