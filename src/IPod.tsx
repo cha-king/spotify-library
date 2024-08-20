@@ -1,14 +1,7 @@
-import { useNavigate } from "react-router";
-import { useEffect } from "react";
-import { getAlbums } from "./spotify";
-import { hasToken } from "./auth/util";
+import useAlbums from "./hooks/useAlbums";
 
 export default function IPod() {
-  useEffect(() => {
-    if (isLoggedIn) {
-      getAlbums();
-    }
-  }, [isLoggedIn]);
+  const albums = useAlbums();
 
   return <div>Hey</div>;
 }
