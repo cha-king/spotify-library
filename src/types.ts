@@ -9,3 +9,5 @@ export interface TokenResponse {
 export interface Token extends TokenResponse {
   expires_at: number;
 }
+
+export interface Album {}

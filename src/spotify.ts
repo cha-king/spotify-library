@@ -1,6 +1,6 @@
 import { getToken } from "./auth/util";
 import { SPOTIFY_API_URL } from "./constants";
-import { Token } from "./types";
+import { Album } from "./types";
 
 const LIMIT = 50;
 
@@ -12,8 +12,6 @@ interface AlbumsResponse {
 interface Item {
   album: Album;
 }
-
-interface Album {}
 
 async function fetchAlbums(access_token: string, offset: number) {
   const url = new URL(SPOTIFY_API_URL);
