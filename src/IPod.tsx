@@ -18,7 +18,7 @@ export default function IPod() {
   );
 
   return (
-    <div>
+    <div className={styles.iPod}>
       <ul>
         {artists?.map(({ name }, i) => (
           <li key={i}>{name}</li>

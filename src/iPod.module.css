@@ -1,0 +1,7 @@
+.iPod ul {
+    list-style: none;
+}
+
+.iPod li:hover {
+    background-color: rgb(141, 251, 255);
+}
