@@ -4,6 +4,7 @@ import useAlbums from "./hooks/useAlbums";
 import { useMemo } from "react";
 import { albumsToArtists } from "./spotify";
 import useLoginRedirect from "./hooks/useLoginRedirect";
+import { Outlet } from "react-router-dom";
 
 export default function IPod() {
   useLoginRedirect();
@@ -18,12 +19,6 @@ export default function IPod() {
   );
 
   return (
-    <div className={styles.iPod}>
-      <ul>
-        {artists?.map(({ name }, i) => (
-          <li key={i}>{name}</li>
-        ))}
-      </ul>
-    </div>
+    <div className={styles.iPod}>{artists && <Outlet context={artists} />}</div>
   );
 }

@@ -10,6 +10,8 @@ export default function useLoginRedirect() {
   useEffect(() => {
     if (!isLoggedIn) {
       navigate("/login");
+    } else {
+      navigate("/artists")
     }
   }, [isLoggedIn, navigate]);
 }
