@@ -7,6 +7,7 @@ import IPod from "./IPod";
 import Login from "./Login";
 import Redirect from "./Redirect";
 import Artists from "./Artists";
+import Artist from "./Artist";
 
 const router = createBrowserRouter([
   {
@@ -16,8 +17,12 @@ const router = createBrowserRouter([
       {
         path: "artists",
         element: <Artists />,
-      }
-    ]
+      },
+      {
+        path: "artist/:artistName",
+        element: <Artist />,
+      },
+    ],
   },
   {
     path: "/login",
