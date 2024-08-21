@@ -20,11 +20,15 @@ async function fetchAlbums(access_token: string, offset: number) {
     offset: offset.toString(),
   }).toString();
 
-  const { items } = (await fetch(url, {
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
-  }).then((response) => response.json())) as AlbumsResponse;
+  });
+  if (response.status !== 200) {
+    throw new Error(`Invalid status code ${response.status}`);
+  }
+  const { items } = (await response.json()) as AlbumsResponse;
 
   const albums = items.map((item) => item.album);
 
@@ -44,11 +48,15 @@ export async function getAlbums(): Promise<Album[]> {
     offset: "0",
   }).toString();
 
-  const { total } = (await fetch(url, {
+  const response = await fetch(url, {
     headers: {
       Authorization: `Bearer ${access_token}`,
     },
-  }).then((response) => response.json())) as AlbumsResponse;
+  });
+  if (response.status !== 200) {
+    throw new Error(`Invalid status code ${response.status}`);
+  }
+  const { total } = (await response.json()) as AlbumsResponse;
 
   const promises = [];
   for (let offset = 0; offset < total; offset += LIMIT) {
