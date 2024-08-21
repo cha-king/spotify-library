@@ -68,6 +68,9 @@ export async function refreshToken({ refresh_token }: Token) {
       client_id: CLIENT_ID,
     }),
   });
+  if (response.status != 200) {
+    throw new Error(`Invalid response code ${response.status}`);
+  }
 
   const tokenResponse = (await response.json()) as TokenResponse;
 
