@@ -1,6 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  Navigate,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import IPod from "./IPod";
@@ -14,6 +18,10 @@ const router = createBrowserRouter([
     path: "/",
     element: <IPod />,
     children: [
+      {
+        index: true,
+        element: <Navigate replace to="/artists" />,
+      },
       {
         path: "artists",
         element: <Artists />,
