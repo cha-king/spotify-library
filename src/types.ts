@@ -21,5 +21,7 @@ export interface ArtistResponse {
 
 export interface Artist {
   name: string;
-  albums: Album[];
+  albums: Map<string, Album>;
 }
+
+export type Library = Map<string, Artist>;

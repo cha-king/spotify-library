@@ -1,24 +1,16 @@
 import styles from "./iPod.module.css";
 
-import useAlbums from "./hooks/useAlbums";
+import useAlbums from "./hooks/useLibrary";
 import { useMemo } from "react";
-import { albumsToArtists } from "./spotify";
 import useLoginRedirect from "./hooks/useLoginRedirect";
 import { Outlet } from "react-router-dom";
+import useLibrary from "./hooks/useLibrary";
 
 export default function IPod() {
   useLoginRedirect();
-  const albums = useAlbums();
-
-  const artists = useMemo(
-    () =>
-      albums
-        ? albumsToArtists(albums).sort((a, b) => a.name.localeCompare(b.name))
-        : null,
-    [albums]
-  );
+  const library = useLibrary();
 
   return (
-    <div className={styles.iPod}>{artists && <Outlet context={artists} />}</div>
+    <div className={styles.iPod}>{library && <Outlet context={library} />}</div>
   );
 }

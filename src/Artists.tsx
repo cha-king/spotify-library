@@ -1,9 +1,16 @@
 import { useNavigate, useOutletContext } from "react-router-dom";
-import { Artist } from "./types";
+import { Artist, Library } from "./types";
+import { useMemo } from "react";
 
 export default function Artists() {
   const navigate = useNavigate();
-  const artists = useOutletContext<Artist[]>();
+  const library = useOutletContext<Library>();
+
+  const artists = useMemo(() => {
+    return Array.from(library.values()).sort((a, b) =>
+      a.name.localeCompare(b.name)
+    );
+  }, [library]);
 
   const onClick = ({ name }: Artist) => {
     navigate(`/artist/${name}`);

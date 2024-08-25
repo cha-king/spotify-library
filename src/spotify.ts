@@ -71,18 +71,3 @@ export async function getAlbums(): Promise<Album[]> {
 
   return albums;
 }
-
-export function albumsToArtists(albums: Album[]): Artist[] {
-  const artists = new Map<string, Artist>();
-  for (const album of albums) {
-    for (const { name: artistName } of album.artists) {
-      let artist = artists.get(artistName);
-      if (artist === undefined) {
-        artist = { name: artistName, albums: [] };
-        artists.set(artistName, artist);
-      }
-      artist.albums.push(album);
-    }
-  }
-  return Array.from(artists.values());
-}
