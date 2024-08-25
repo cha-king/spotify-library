@@ -12,6 +12,7 @@ import Login from "./Login";
 import Redirect from "./Redirect";
 import Artists from "./Artists";
 import Artist from "./Artist";
+import ArtistList from "./ArtistList";
 
 const router = createBrowserRouter([
   {
@@ -25,10 +26,16 @@ const router = createBrowserRouter([
       {
         path: "artists",
         element: <Artists />,
-      },
-      {
-        path: "artist/:artistName",
-        element: <Artist />,
+        children: [
+          {
+            index: true,
+            element: <ArtistList />,
+          },
+          {
+            path: ":artistName",
+            element: <Artist />,
+          },
+        ],
       },
     ],
   },
