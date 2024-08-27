@@ -1,6 +1,8 @@
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Artist } from "./types";
 
+import styles from "./AlbumList.module.css";
+
 export default function AlbumList() {
   const { albums } = useOutletContext<Artist>();
   const navigate = useNavigate();
@@ -10,7 +12,7 @@ export default function AlbumList() {
   };
 
   return (
-    <ul>
+    <ul className={styles.AlbumList}>
       {Array.from(albums.values()).map(({ name, images }) => (
         <li onClick={() => onClick(name)}>
           <img src={images.at(-1)?.url} />
