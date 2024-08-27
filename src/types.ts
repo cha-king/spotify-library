@@ -14,6 +14,13 @@ export interface Album {
   name: string;
   artists: ArtistResponse[];
   tracks: Tracks;
+  images: Image[];
+}
+
+export interface Image {
+  height: number;
+  width: number;
+  url: string;
 }
 
 export interface ArtistResponse {
