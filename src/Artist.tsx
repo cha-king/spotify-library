@@ -12,5 +12,5 @@ export default function Artist() {
     return null;
   }
 
-  return <Outlet context={artist.albums} />;
+  return <Outlet context={artist} />;
 }

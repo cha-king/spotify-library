@@ -13,6 +13,7 @@ export interface Token extends TokenResponse {
 export interface Album {
   name: string;
   artists: ArtistResponse[];
+  tracks: Tracks;
 }
 
 export interface ArtistResponse {
@@ -25,3 +26,11 @@ export interface Artist {
 }
 
 export type Library = Map<string, Artist>;
+
+export interface Track {
+  name: string;
+}
+
+export interface Tracks {
+  items: Track;
+}

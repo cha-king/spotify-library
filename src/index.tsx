@@ -14,6 +14,8 @@ import Artists from "./Artists";
 import Artist from "./Artist";
 import ArtistList from "./ArtistList";
 import AlbumList from "./AlbumList";
+import Album from "./Album";
+import TrackList from "./TrackList";
 
 const router = createBrowserRouter([
   {
@@ -39,6 +41,16 @@ const router = createBrowserRouter([
               {
                 index: true,
                 element: <AlbumList />,
+              },
+              {
+                path: "albums/:albumName",
+                element: <Album />,
+                children: [
+                  {
+                    index: true,
+                    element: <TrackList />,
+                  },
+                ],
               },
             ],
           },
