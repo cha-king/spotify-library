@@ -11,6 +11,10 @@ export default function IPod() {
   const library = useLibrary();
 
   return (
-    <div className={styles.iPod}>{library && <Outlet context={library} />}</div>
+    <div className={styles.container}>
+      <div className={styles.iPod}>
+        {library && <Outlet context={library} />}
+      </div>
+    </div>
   );
 }
