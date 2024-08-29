@@ -6,7 +6,7 @@ const SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize";
 const SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token";
 const REDIRECT_URI = "http://localhost:3000/redirect";
 const STATE = "";
-const SCOPE = "user-library-read";
+const SCOPES = ["user-library-read", "user-modify-playback-state"];
 
 export function base64UrlEncode(value: string) {
   return btoa(value)
@@ -48,7 +48,7 @@ export function requestAuthorization(challenge: string) {
     client_id: CLIENT_ID,
     redirect_uri: REDIRECT_URI,
     // state: STATE,
-    scope: SCOPE,
+    scope: SCOPES.join(" "),
     code_challenge: challenge,
   });
   url.search = params.toString();
