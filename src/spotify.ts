@@ -14,7 +14,7 @@ interface Item {
 }
 
 async function fetchAlbums(access_token: string, offset: number) {
-  const url = new URL(SPOTIFY_API_URL);
+  const url = new URL(`${SPOTIFY_API_URL}/me/albums`);
   url.search = new URLSearchParams({
     limit: LIMIT.toString(),
     offset: offset.toString(),
@@ -42,7 +42,7 @@ export async function getAlbums(): Promise<Album[]> {
   }
   const { access_token } = token;
 
-  const url = new URL(SPOTIFY_API_URL);
+  const url = new URL(`${SPOTIFY_API_URL}/me/albums`);
   url.search = new URLSearchParams({
     limit: "1",
     offset: "0",
@@ -70,4 +70,25 @@ export async function getAlbums(): Promise<Album[]> {
   );
 
   return albums;
+}
+
+export async function playTrack(uri: string) {
+  const token = await getToken();
+  if (token === null) {
+    throw new Error("No token");
+  }
+  const { access_token } = token;
+
+  const url = new URL(`${SPOTIFY_API_URL}/me/player/play`);
+
+  const response = await fetch(url, {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${access_token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      uris: [uri],
+    }),
+  });
 }

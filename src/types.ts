@@ -36,6 +36,7 @@ export type Library = Map<string, Artist>;
 
 export interface Track {
   name: string;
+  uri: string;
 }
 
 export interface Tracks {
